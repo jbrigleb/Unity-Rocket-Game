@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour {
 
+	[SerializeField] float rcsThrust = 100f;
+	[SerializeField] float mainThrust = 100f;
 	private Rigidbody rigidBody;
 	private AudioSource audioSource;
 	
@@ -16,16 +18,50 @@ public class Rocket : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		ProcessInput();
+		Thrust();
+		Rotate();
 		
 	}
 	
-	private void ProcessInput(){
-		//Mapping input directly
+	void OnCollisionEnter(Collision collision){
 		
+		switch ( collision.gameObject.tag ){
+			
+			case "Friendly":
+				//do nothing
+				Debug.Log("friendly collision");
+				break;
+			
+			default:
+				Debug.Log("you're dead");
+				break;
+			
+			
+			
+		}
+	}
+	
+	private void Rotate(){
+		//get rotation
+		
+		rigidBody.freezeRotation = true; //take manual control of rotation
+		
+		float rotationScaler = rcsThrust * Time.deltaTime;
+		
+		if(Input.GetKey(KeyCode.A)){
+			transform.Rotate(Vector3.forward*rotationScaler);
+		}else if(Input.GetKey(KeyCode.D)){
+			transform.Rotate(-Vector3.forward*rotationScaler);
+		}
+		
+		rigidBody.freezeRotation = false; //resume physics control
+	}
+	private void Thrust(){
 		//get thrust
+		
+		float thrustScaler = mainThrust * Time.deltaTime;
 		if(Input.GetKey(KeyCode.Space)){
-			rigidBody.AddRelativeForce(Vector3.up);
+			rigidBody.AddRelativeForce(Vector3.up * thrustScaler);
 			if(!audioSource.isPlaying){
 				audioSource.Play();
 			}
@@ -33,12 +69,5 @@ public class Rocket : MonoBehaviour {
 		else{
 			audioSource.Stop();
 		}
-		//get rotation
-		if(Input.GetKey(KeyCode.A)){
-			transform.Rotate(Vector3.forward);
-		}else if(Input.GetKey(KeyCode.D)){
-			transform.Rotate(-Vector3.forward);
-		}
-		
 	}
 }
