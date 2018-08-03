@@ -61,7 +61,7 @@ public class Rocket : MonoBehaviour {
 		
 		float thrustScaler = mainThrust * Time.deltaTime;
 		if(Input.GetKey(KeyCode.Space)){
-			rigidBody.AddRelativeForce(Vector3.up * thrustScaler);
+			rigidBody.AddRelativeForce(Vector3.up * mainThrust);
 			if(!audioSource.isPlaying){
 				audioSource.Play();
 			}
