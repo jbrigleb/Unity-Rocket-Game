@@ -7,6 +7,11 @@ public class Rocket : MonoBehaviour {
 
 	[SerializeField] float rcsThrust = 100f;
 	[SerializeField] float mainThrust = 100f;
+	
+	[SerializeField] AudioClip mainEngine;
+	[SerializeField] AudioClip deathSound;
+	[SerializeField] AudioClip levelClearSound;
+	
 	private Rigidbody rigidBody;
 	private AudioSource audioSource;
 	
@@ -22,8 +27,8 @@ public class Rocket : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(state == State.Alive){
-			Thrust();
-			Rotate();
+			RespondToThrustInput();
+			RespondToRotateInput();
 		}
 	}
 	
@@ -37,31 +42,39 @@ public class Rocket : MonoBehaviour {
 			
 			case "Friendly":
 				//do nothing
-				Debug.Log("friendly collision");
 				break;
 				
 			case "Finish":
 				//Landing Pad Reached
 				//End Level; Load next
-				
-				state = State.Transcending;
-				Invoke("LoadNextLevel",1f);
-				
+				StartSuccessSequence();
 				break;
 			
 			default:
 				//fail state; character has died
 				//Load first level
-				Debug.Log("you're dead");
-				
-				state = State.Dying;
-				Invoke("LoadFirstLevel",1f);
-
-				break;
-			
-			
-			
+				StartDeathSequence();
+				break;		
 		}
+	}
+	
+	private void StartSuccessSequence(){
+		
+		state = State.Transcending;
+		audioSource.Stop();
+		audioSource.PlayOneShot(levelClearSound,.5f);		
+		
+		Invoke("LoadNextLevel",1f);
+	}
+	
+	private void StartDeathSequence(){
+		
+		state = State.Dying;
+		audioSource.Stop();
+		audioSource.PlayOneShot(deathSound,.5f);
+
+		Invoke("LoadFirstLevel",1f);
+
 	}
 	
 	private void LoadNextLevel(){
@@ -72,7 +85,7 @@ public class Rocket : MonoBehaviour {
 		SceneManager.LoadScene(0);	
 	}
 	
-	private void Rotate(){
+	private void RespondToRotateInput(){
 		//get rotation
 		
 		rigidBody.freezeRotation = true; //take manual control of rotation
@@ -87,18 +100,25 @@ public class Rocket : MonoBehaviour {
 		
 		rigidBody.freezeRotation = false; //resume physics control
 	}
-	private void Thrust(){
+	private void RespondToThrustInput(){
 		//get thrust
 		
-		float thrustScaler = mainThrust * Time.deltaTime;
+		//float thrustScaler = mainThrust * Time.deltaTime;
 		if(Input.GetKey(KeyCode.Space)){
-			rigidBody.AddRelativeForce(Vector3.up * mainThrust);
-			if(!audioSource.isPlaying){
-				audioSource.Play();
-			}
+			ApplyThrust();
 		}
 		else{
 			audioSource.Stop();
 		}
 	}
+	
+	private void ApplyThrust(){
+		
+		rigidBody.AddRelativeForce(Vector3.up * mainThrust);
+		if(!audioSource.isPlaying){
+			audioSource.PlayOneShot(mainEngine);
+		}
+		
+	}
+	
 }
