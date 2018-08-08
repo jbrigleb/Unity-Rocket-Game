@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour {
 
@@ -8,6 +9,9 @@ public class Rocket : MonoBehaviour {
 	[SerializeField] float mainThrust = 100f;
 	private Rigidbody rigidBody;
 	private AudioSource audioSource;
+	
+	enum State { Alive, Dying, Transcending };
+	State state = State.Alive;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,13 +21,17 @@ public class Rocket : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-		Thrust();
-		Rotate();
-		
+		if(state == State.Alive){
+			Thrust();
+			Rotate();
+		}
 	}
 	
 	void OnCollisionEnter(Collision collision){
+		
+		if(state != State.Alive){
+			return;
+		}
 		
 		switch ( collision.gameObject.tag ){
 			
@@ -31,14 +39,37 @@ public class Rocket : MonoBehaviour {
 				//do nothing
 				Debug.Log("friendly collision");
 				break;
+				
+			case "Finish":
+				//Landing Pad Reached
+				//End Level; Load next
+				
+				state = State.Transcending;
+				Invoke("LoadNextLevel",1f);
+				
+				break;
 			
 			default:
+				//fail state; character has died
+				//Load first level
 				Debug.Log("you're dead");
+				
+				state = State.Dying;
+				Invoke("LoadFirstLevel",1f);
+
 				break;
 			
 			
 			
 		}
+	}
+	
+	private void LoadNextLevel(){
+		SceneManager.LoadScene(1);
+	}
+	
+	private void LoadFirstLevel(){
+		SceneManager.LoadScene(0);	
 	}
 	
 	private void Rotate(){
