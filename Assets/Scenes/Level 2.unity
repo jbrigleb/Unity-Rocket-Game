@@ -1127,36 +1127,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4756674336854564, guid: 296e905e3c20cfc48a1a833c33e876a4, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 4874745986485062, guid: 296e905e3c20cfc48a1a833c33e876a4, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.1600002
-      objectReference: {fileID: 0}
-    - target: {fileID: 4021119340900872, guid: 296e905e3c20cfc48a1a833c33e876a4, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 4169606785420662, guid: 296e905e3c20cfc48a1a833c33e876a4, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.21
-      objectReference: {fileID: 0}
     - target: {fileID: 114736986135246698, guid: 296e905e3c20cfc48a1a833c33e876a4,
         type: 2}
       propertyPath: mainThrust
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 54898747933367194, guid: 296e905e3c20cfc48a1a833c33e876a4,
-        type: 2}
-      propertyPath: m_Drag
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 54898747933367194, guid: 296e905e3c20cfc48a1a833c33e876a4,
-        type: 2}
-      propertyPath: m_Mass
-      value: 1
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 296e905e3c20cfc48a1a833c33e876a4, type: 2}
