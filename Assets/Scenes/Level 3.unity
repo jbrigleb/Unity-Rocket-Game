@@ -1641,7 +1641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementVector: {x: 0, y: 10, z: 0}
-  period: 5
+  period: 6
   movementFactor: 0
 --- !u!4 &1701655985
 Transform:
@@ -1950,7 +1950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementVector: {x: 0, y: 10, z: 0}
-  period: 5
+  period: 3
   movementFactor: 0
 --- !u!4 &1951878283
 Transform:
