@@ -12,7 +12,7 @@ Thrust: Space Bar
 
 This Game was made following instruction in the Complete C# Unity Developer 3D course taught by Ben Tristem.
 
-What I've learned:
+### What I've learned:
 
 Using SerializeField to expose data members in the inspector, as opposed to making them public.
 
@@ -24,7 +24,7 @@ Many different small functionalities of the editor, such as viewing private data
 
 How applying changes to a prefab from and instance of that prefab works, and how other instances will and won't be affected. 
 
-What I've reinforced:
+### What I've reinforced:
 
 Using a switch to determine state.
 
