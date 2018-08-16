@@ -4,8 +4,11 @@
 playable WebGL build at: http://www.sharemygame.com/share/0baeb087-f876-434e-b2be-b3975966e5ec
 
 Rotate Left: A key
+
 Rotate Right: D key
+
 Thrust: Space Bar
+
 
 This Game was made following instruction in the Complete C# Unity Developer 3D course taught by Ben Tristem.
 
